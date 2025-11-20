@@ -1,0 +1,48 @@
+# --- Ignore WordPress core ---
+/wp-admin/
+/wp-includes/
+/index.php
+/license.txt
+/readme.html
+/wp-config-sample.php
+/xmlrpc.php
+/wp-cron.php
+/wp-load.php
+/wp-blog-header.php
+/wp-settings.php
+/wp-links-opml.php
+/wp-*.php
+!/wp-config.php   # <-- exception, keep this tracked
+!/wp-config-sample.php   # <-- exception, keep this tracked
+# --- Allow tracking of config files ---
+!wp-config.php
+!wp-config-sample.php
+
+# --- Ignore everything except wp-content ---
+!/wp-content/
+
+# Ignore caches and temp files inside wp-content
+wp-content/cache/
+wp-content/upgrade/
+wp-content/backups/
+wp-content/uploads/cache/
+uploads/
+
+# --- Ignore environment & build files ---
+.env
+.env.*
+docker-compose.override.yml
+node_modules/
+vendor/
+package-lock.json
+yarn.lock
+
+# --- Ignore system/editor files ---
+*.DS_Store
+Thumbs.db
+*.log
+*.swp
+*.swo
+.vscode/
+.idea/
+__notes
