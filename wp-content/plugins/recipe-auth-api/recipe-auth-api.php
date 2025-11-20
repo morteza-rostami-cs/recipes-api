@@ -46,25 +46,24 @@ require_once RECIPE_AUTH_API_PATH . 'includes/class-recipe-cpt.php';
  */
 
 add_filter('pre_term_slug', function($slug, $term) {
-    // Use the raw name so Farsi characters are kept
-    if (!empty($_POST['name'])) {
-        $slug = $_POST['name'];  // the Persian name the user entered
-    }
+  // Use the raw name so Farsi characters are kept
+  if (!empty($_POST['name'])) {
+      $slug = $_POST['name'];  // the Persian name the user entered
+  }
 
-    // Replace spaces with hyphens
-    $slug = str_replace(' ', '-', $slug);
+  // Replace spaces with hyphens
+  $slug = str_replace(' ', '-', $slug);
 
-    // Ensure no encoding
-    $slug = urldecode($slug);
+  // Ensure no encoding
+  $slug = urldecode($slug);
 
-    return $slug;
+  return $slug;
 }, 10, 2);
-
 
 add_action('init', function () {
   // Allow cookies + origin
   header('Access-Control-Allow-Credentials: true');
-  header('Access-Control-Allow-Origin: http://localhost:5173');
+  header("Access-Control-Allow-Origin: " . RECIPE_FRONTEND_URL);
   header('Access-Control-Allow-Headers: Content-Type, Authorization, X-WP-Nonce');
   header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
 
