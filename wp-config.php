@@ -24,9 +24,10 @@ define('WP_DEBUG_DISPLAY', true);
 // ------------------------------
 // Load .env using phpdotenv
 // ------------------------------
-require_once __DIR__ . '/vendor/autoload.php'; // adjust path if needed
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-$dotenv->safeLoad(); // won't throw if .env is missing
+require_once __DIR__ . '/wp-content/plugins/recipe-auth-api/vendor/autoload.php';
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__); // still load root .env
+$dotenv->safeLoad();
 
 // ------------------------------
 // Define RECIPE_* constants
