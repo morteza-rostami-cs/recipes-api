@@ -6,6 +6,16 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+// Tell WordPress that we're using HTTPS behind a reverse proxy
+if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
+	$_SERVER['HTTPS'] = 'on';
+}
+
+define('WP_DEBUG', true);
+define('WP_DEBUG_LOG', true);
+define('WP_DEBUG_DISPLAY', true);
+@ini_set('display_errors', 1);
+
 // ------------------------------
 // Load .env for sensitive configuration
 // ------------------------------
@@ -137,9 +147,5 @@ add_action('phpmailer_init', function($phpmailer) {
     $phpmailer->From       = RECIPE_SMTP_FROM_EMAIL;
     $phpmailer->FromName   = RECIPE_SMTP_FROM_NAME;
 });
-
-error_log("=========================\n\n");
-error_log("ENV PATH: " . print_r($env_paths, true));
-error_log("ENV CONTENTS: " . print_r($env, true));
 
 file_put_contents(__DIR__ . '/env_debug.log', date('Y-m-d H:i:s') . " :: RECIPE_JWT_SECRET=" . ($_ENV['RECIPE_JWT_SECRET'] ?? 'MISSING') . "\n", FILE_APPEND);
