@@ -33,9 +33,7 @@ foreach ($env as $key => $value) {
     }
 }
 
-error_log("=========================\n\n");
-error_log('ENV PATH: ' . $env_paths);
-error_log('ENV CONTENTS: ' . print_r($env, true));
+
 
 
 // ------------------------------
@@ -134,3 +132,7 @@ add_action('phpmailer_init', function($phpmailer) {
     $phpmailer->From       = RECIPE_SMTP_FROM_EMAIL;
     $phpmailer->FromName   = RECIPE_SMTP_FROM_NAME;
 });
+
+error_log("=========================\n\n");
+error_log('ENV PATH: ' . $env_paths);
+error_log('ENV CONTENTS: ' . print_r($env, true));
