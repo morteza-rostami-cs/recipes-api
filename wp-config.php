@@ -134,7 +134,7 @@ add_action('phpmailer_init', function($phpmailer) {
 });
 
 error_log("=========================\n\n");
-error_log("ENV PATH: " . print_r($env_path, true));
+error_log("ENV PATH: " . print_r($env_paths, true));
 error_log("ENV CONTENTS: " . print_r($env, true));
 
 file_put_contents(__DIR__ . '/env_debug.log', date('Y-m-d H:i:s') . " :: RECIPE_JWT_SECRET=" . ($_ENV['RECIPE_JWT_SECRET'] ?? 'MISSING') . "\n", FILE_APPEND);
