@@ -60,19 +60,38 @@ add_filter('pre_term_slug', function($slug, $term) {
   return $slug;
 }, 10, 2);
 
-add_action('init', function () {
-  // Allow cookies + origin
-  header('Access-Control-Allow-Credentials: true');
-  header("Access-Control-Allow-Origin: " . RECIPE_FRONTEND_URL);
-  header('Access-Control-Allow-Headers: Content-Type, Authorization, X-WP-Nonce');
-  header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
+// add_action('init', function () {
+//   // Allow cookies + origin
+//   header('Access-Control-Allow-Credentials: true');
+//   header("Access-Control-Allow-Origin: " . RECIPE_FRONTEND_URL);
+//   header('Access-Control-Allow-Headers: Content-Type, Authorization, X-WP-Nonce');
+//   header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
 
-  // Handle preflight EARLY
-  if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    status_header(200);
-    exit;
-  }
+//   // Handle preflight EARLY
+//   if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+//     status_header(200);
+//     exit;
+//   }
+// });
+
+add_action('rest_api_init', function () {
+    remove_filter('rest_pre_serve_request', 'rest_send_cors_headers');
+
+    add_filter('rest_pre_serve_request', function ($value) {
+        $origin = get_http_origin();
+
+        if ($origin === 'https://recipes.mortteza.site') {
+            header("Access-Control-Allow-Origin: $origin");
+            header("Access-Control-Allow-Credentials: true");
+        }
+
+        header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+        header("Access-Control-Allow-Headers: Content-Type, Authorization, X-WP-Nonce");
+
+        return $value;
+    });
 });
+
 
 /**
  * Parse JWT from HttpOnly cookie (for /me and private routes)
