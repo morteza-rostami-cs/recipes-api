@@ -33,6 +33,10 @@ foreach ($env as $key => $value) {
     }
 }
 
+error_log("=========================\n\n");
+error_log('ENV PATH: ' . $env_paths);
+error_log('ENV CONTENTS: ' . print_r($env, true));
+
 
 // ------------------------------
 // Determine environment
