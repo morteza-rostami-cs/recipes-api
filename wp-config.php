@@ -19,6 +19,11 @@ $env = [];
 foreach ($env_paths as $path) {
     if (file_exists($path)) {
         $parsed = parse_ini_file($path, false, INI_SCANNER_TYPED);
+				error_log("\n\n\n");
+				error_log(print_r($path, true));
+				error_log(print_r($parsed, true));
+				error_log("\n\n\n");
+
         if (is_array($parsed)) {
             $env = array_merge($env, $parsed); // root overrides plugin if duplicated
         }
