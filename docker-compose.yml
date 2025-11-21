@@ -32,6 +32,9 @@ services:
     networks:
       - wp_network
 
+    environment:
+      - RECIPE_JWT_SECRET=JWT_SECRET
+
     ports:
       - "${APP_PORT}:80"
 
