@@ -9,23 +9,30 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 // ------------------------------
 // Load .env for sensitive configuration
 // ------------------------------
-$env_path = __DIR__ . '/wp-content/plugins/recipe-auth-api/.env';
+$env_paths = [
+    __DIR__ . '/.env', // root-level
+    __DIR__ . '/wp-content/plugins/recipe-auth-api/.env', // plugin-level fallback
+];
+
 $env = [];
 
-if ( file_exists( $env_path ) ) {
-    $env = parse_ini_file( $env_path, false, INI_SCANNER_TYPED );
-    if ( !is_array($env) ) {
-        $env = [];
-    }
-
-    // Define RECIPE_* constants for plugin
-    foreach ( $env as $key => $value ) {
-        $const_key = 'RECIPE_' . strtoupper( $key );
-        if ( ! defined($const_key) ) {
-            define( $const_key, $value );
+foreach ($env_paths as $path) {
+    if (file_exists($path)) {
+        $parsed = parse_ini_file($path, false, INI_SCANNER_TYPED);
+        if (is_array($parsed)) {
+            $env = array_merge($env, $parsed); // root overrides plugin if duplicated
         }
     }
 }
+
+// define RECIPE_* constants
+foreach ($env as $key => $value) {
+    $const_key = 'RECIPE_' . strtoupper($key);
+    if (!defined($const_key)) {
+        define($const_key, $value);
+    }
+}
+
 
 // ------------------------------
 // Determine environment

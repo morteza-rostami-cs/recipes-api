@@ -112,7 +112,7 @@ add_action('rest_api_init', function () {
 add_action('rest_api_init', function () {
   register_rest_field('user', 'jwt', [
     'get_callback' => function () {
-      return isset($_COOKIE['jwt_token']) ? $_COOKIE['jwt_token'] : null;
+      return isset($_COOKIE['recipe_jwt']) ? $_COOKIE['recipe_jwt'] : null;
     },
   ]);
 });
