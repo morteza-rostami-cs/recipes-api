@@ -231,7 +231,10 @@ class Recipe_Auth_Controller {
       update_user_meta( $user_id, 'profile_avatar', $avatar_url );
     }
 
-    echo RECIPE_JWT_SECRET;
+    error_log("*********************");
+    error_log(RECIPE_JWT_SECRET);
+    error_log("*********************");
+
     #error_log(print_r(RECIPE_JWT_SECRET, true));
     // JWT generation
     if ( ! defined( 'RECIPE_JWT_SECRET' ) ) {
