@@ -28,6 +28,7 @@ services:
     volumes:
       - ./wp-content:/var/www/html/wp-content
       - ./wp-config.php:/var/www/html/wp-config.php
+      - ./.env:/var/www/html/.env
     networks:
       - wp_network
 
